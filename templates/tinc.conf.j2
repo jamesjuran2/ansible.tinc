@@ -3,7 +3,11 @@ Name={{ item.name }}
 {% if item.device|d() %}
 Device={{ item.device }}
 {% endif %}
+{% if item.mode|d() %}
+Mode={{ item.mode }}
+{% else %}
 Mode=switch
+{% endif %}
 {% for server in tinc_vpn %}
 {% if item.vpn == server.vpn and item.name != server.name and server.address|d() %}
 ConnectTo={{ server.name }}
