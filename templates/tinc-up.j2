@@ -1,5 +1,7 @@
 #!/bin/sh
-ip address add {{ item.vpn_address }}/{{ item.vpn_prefixlength }} dev $INTERFACE
+{% for i in item.vpn_interface %}
+ip address add {{ i.address }}/{{ i.prefixlength }} dev $INTERFACE
+{% endif %}
 ip link set $INTERFACE up
 {% for host in tinc_vpn %}
 {% if host.subnet is defined %}
