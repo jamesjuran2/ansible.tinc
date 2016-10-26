@@ -15,7 +15,7 @@ Subnet={{ item.subnet }}
 {% endif %}
 {% else %}
 {% for i in item.vpn_interface %}
-{% if i.address | ipv4 %}
+{% if i.address %}
 Subnet={{ i.address }}/32
 {% else %}
 Subnet={{ i.address }}/128
