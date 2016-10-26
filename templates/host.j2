@@ -6,7 +6,7 @@ Address={{ item.address }}
 Port={{ item.port | default('655') }}
 Compression={{ item.compression | default('0') }}
 {% if 'subnet' in item %}
-  {% if item.subnet is iterable %}
+  {% if item.subnet is iterable and item.subnet is not string %}
     {% for subnet in item.subnet %}
 Subnet={{subnet}}
     {% endfor %}
@@ -14,7 +14,7 @@ Subnet={{subnet}}
 Subnet={{ item.subnet }}
   {% endif %}
 {% else %}
-  {% if item.vpn_address is iterable %}
+  {% if item.vpn_address is iterable and item.vpn_address is not string %}
     {% for vpn_address in item.vpn_address %}
 Subnet={{ vpn_address }}/32
     {% endfor %}
