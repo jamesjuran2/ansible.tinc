@@ -45,6 +45,24 @@
       - item.subnet is not defined or item.subnet.split('/')[1] | int
   with_items: "{{tinc_vpn}}"
 
+- name: tinc | check tinc_vpn.vpn_interface is defined and non-empty
+  assert:
+    that: item.vpn_interface is defined and item.vpn_interface|length > 0
+  with_items: "{{tinc_vpn}}"
+
+- name: tinc | check tinc_vpn list if vpn interface addresses and prefixes are defined and well formed
+  assert:
+    that:
+      - item.1.address is defined and item.1.address|length > 0
+      - item.1.address | ipaddr
+      - item.1.address | ipaddr('address')
+      - item.1.prefixlength is defined
+      - item.1.prefixlength | int
+      - item.1.prefixlength >= 0 and item.1.prefixlength <= 128
+  with_subelements:
+      - "{{tinc_vpn}}"
+      - vpn_interface
+
 - name: tinc | check tinc_vpn list if public_key is defined
   assert:
     that:
