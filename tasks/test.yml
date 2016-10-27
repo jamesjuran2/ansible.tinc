@@ -1,8 +1,9 @@
 ---
 
-- name: tinc | check if tinc_hostname is defined
+- name: tinc | check if tinc_hostname is defined and valid
   assert:
     that: tinc_hostname is defined and tinc_hostname|length > 0
+    that: '-' not in tinc_hostname
 
 - name: tinc | check if tinc_rsa_key is defined
   assert:
