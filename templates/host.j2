@@ -1,11 +1,11 @@
 # This file is managed by Ansible, all changes will be lost.
 Name={{ item.name }}
-{% if 'address' in item %}
-{% if tinc_hostgroup|d() and tinc_hostgroup != item.hostgroup and item.external_address|d() %}
+{% if tinc_hostgroup|d() and tinc_hostgroup != item.hostgroup %}
+{% if item.external_address|d() %}
 Address={{ item.external_address }}
-{% else %}
-Address={{ item.address }}
 {% endif %}
+{% elif 'address' in item %}
+Address={{ item.address }}
 {% endif %}
 Port={{ item.port | default('655') }}
 Compression={{ item.compression | default('0') }}
