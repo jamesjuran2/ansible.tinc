@@ -44,6 +44,7 @@
     owner: root
     group: root
   with_items: "{{tinc_vpn}}"
+  when: tinc_hostname == item.name
   become: yes
   become_method: sudo
   notify: "{{ tinc_reload }}"
