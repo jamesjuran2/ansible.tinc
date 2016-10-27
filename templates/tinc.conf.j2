@@ -13,7 +13,7 @@ Mode=switch
 ConnectTo={{ server.name }}
 {% endif %}
 {% endfor %}
-StrictSubnets = yes
+TunnelServer = yes
 {% if tinc_cipher|d() and tinc_cipher %}
 Cipher={{ tinc_cipher }}
 {% endif %}
