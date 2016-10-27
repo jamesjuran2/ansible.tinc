@@ -3,11 +3,7 @@ Name={{ item.name }}
 {% if item.device|d() %}
 Device={{ item.device }}
 {% endif %}
-{% if item.mode|d() %}
-Mode={{ item.mode }}
-{% else %}
-Mode=switch
-{% endif %}
+Mode={{ tinc_mode }}
 {% for server in tinc_vpn %}
 {% if item.vpn == server.vpn and item.name != server.name and (not item.hostgroup|d() or item.hostgroup == server.hostgroup) and server.address|d() %}
 ConnectTo={{ server.name }}
@@ -18,7 +14,7 @@ ConnectTo={{ server.name }}
 ConnectTo={{ server }}
 {% endfor %}
 {% endif %}
-TunnelServer = yes
+TunnelServer={{ tinc_tunnel_server }}
 {% if tinc_cipher|d() and tinc_cipher %}
 Cipher={{ tinc_cipher }}
 {% endif %}

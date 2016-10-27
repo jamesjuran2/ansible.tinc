@@ -3,6 +3,8 @@
 #tinc_hostname: redis3
 tinc_cipher: aes-256-cbc
 tinc_digest: SHA512
+tinc_mode: switch
+tinc_tunnel_server: no
 tinc_init_system: '{{ "systemd"
                    if (ansible_service_mgr|d() and
                        ansible_service_mgr == "systemd")
