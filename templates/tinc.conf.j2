@@ -9,7 +9,7 @@ Mode={{ item.mode }}
 Mode=switch
 {% endif %}
 {% for server in tinc_vpn %}
-{% if item.vpn == server.vpn and item.name != server.name and server.address|d() %}
+{% if item.vpn == server.vpn and item.name != server.name and (not item.hostgroup|d() or item.hostgroup == server.hostgroup) and server.address|d() %}
 ConnectTo={{ server.name }}
 {% endif %}
 {% endfor %}

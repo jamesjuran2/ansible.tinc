@@ -24,6 +24,7 @@
     tinc_vpn:
       - vpn: test_vpn
         name: test
+        hostgroup: group1
         address: "127.0.0.1"
         subnet: "10.0.0.0/24"
         vpn_interface:
