@@ -13,6 +13,11 @@ Mode=switch
 ConnectTo={{ server.name }}
 {% endif %}
 {% endfor %}
+{% if item.also_connect_to|d() %}
+{% for server in item.also_connect_to %}
+ConnectTo={{ server }}
+{% endfor %}
+{% endif %}
 TunnelServer = yes
 {% if tinc_cipher|d() and tinc_cipher %}
 Cipher={{ tinc_cipher }}
