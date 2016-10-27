@@ -17,7 +17,8 @@ tinc_reload: "reload tinc - {{ tinc_init_system }}"
 #    address: <local ip where tinc should listen>
 #    port: 655
 #    compression: 0
-#    vpn_addres: <ip address>
-#    vpn_prefixlength: <prefixlen>
+#    vpn_interface:
+#      - address: <ip address>
+#        prefixlength: <prefixlen>
 #    subnet: <network address/prefixlen> # optional
 #    public_key: |

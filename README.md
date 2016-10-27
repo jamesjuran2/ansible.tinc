@@ -25,18 +25,22 @@ In order to setup a simple point to point vpn, common variables:
       - vpn: test #vpn name
         name: host1
         address: 192.168.205.10 #local adddress
-        vpn_address: 172.10.10.10 # ip address to use in the vpn interface
-        vpn_prefixlength: 24 # tells which hosts in VPN are directly reachable
+        vpn_interface:
+          - address: 172.10.10.10 # ip address to use in the vpn interface
+            prefixlength: 24 # tells which hosts in VPN are directly reachable
         public_key: |
           -----BEGIN RSA PUBLIC KEY-----
+          [...]
           -----END RSA PUBLIC KEY-----
       - vpn: test
         name: host2
         address: 192.168.205.11
-        vpn_address: 172.10.10.11
-        vpn_prefixlength: 24
+        vpn_interface:
+          - address: 172.10.10.11
+            prefixlength: 24
         public_key: |
           -----BEGIN RSA PUBLIC KEY-----
+          [...]
           -----END RSA PUBLIC KEY-----
 
 Host-specific configuration:
@@ -46,6 +50,7 @@ host1:
     tinc_hostname: host1
     tinc_rsa_key: |
       -----BEGIN RSA PRIVATE KEY-----
+      [...]
       -----END RSA PRIVATE KEY-----
 
 host2:
@@ -53,20 +58,37 @@ host2:
     tinc_hostname: host2
     tinc_rsa_key: |
       -----BEGIN RSA PRIVATE KEY-----
+      [...]
       -----END RSA PRIVATE KEY-----
+
+This example can be expanded to easily create a fully-connected mesh of more
+than two nodes.
 
 More Complicated Networks
 -------------------------
 If you have a more complicated network, such as where each node in the
 mesh is not fully connected, or where a node has additional hosts behind it,
 you can set the 'subnet' value for each element in tinc_vpn. This will be
-passed directly to the Subnet field in that host's configuration file. If
-subnet is not specified, it will be set to:
+passed directly to the Subnet field in that host's configuration file.
 
-{{vpn_address}}/32
+If subnet is not specified, it will be set to:
+
+{{vpn_interface.address}}/32 (or /128 for an IPv6 address)
 
 which tells tinc that each host on the VPN can be contacted directly, which is the
 simplest configuration.
+
+Multiple VPN Addesses
+---------------------
+vpn_interface is an array that allows you to configure as many addresses as
+you want on the VPN interface. For example, you can have a dual IPv4/IPv6 VPN by
+doing:
+
+vpn_interface:
+  - address: 10.10.10.1
+    prefixlength: 24
+  - address: dead:beef::1
+    prefixlength: 64
 
 Switch vs Router Mode
 ---------------------
